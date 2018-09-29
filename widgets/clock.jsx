@@ -13,11 +13,20 @@ class Clock extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(this.tick.bind(this), 1000);
+    const interval = setInterval(this.tick.bind(this), 1000);
+    this.interval = interval;
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render () {
-    return (<h1>{`${this.state.time.getHours()}:${this.state.time.getMinutes()}:${this.state.time.getSeconds()}`}</h1> );
+    return (
+      <div>
+      <h1>{this.state.time.toTimeString().slice(0, 8)}</h1>
+      <h1>{this.state.time.toDateString()}</h1>
+      </div>);
   }
 }
 
